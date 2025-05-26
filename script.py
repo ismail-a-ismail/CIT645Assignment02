@@ -15,54 +15,42 @@ graph = {
 
 
 # BFS Traversal
+# Iterative Implementation (Using Queue)
 def bfs(graph, start):
-    
-    visited = {start}
+    visited = set()
     queue = deque([start])
-    order = [start]
-    tree_edges = []
-    
-    while queue:
-        vertex = queue.popleft()
-        
-        for neighbor in sorted(graph[vertex]):
-            if neighbor not in visited:
-                visited.add(neighbor)
-                queue.append(neighbor)
-                order.append(neighbor)
-                tree_edges.append((vertex, neighbor))
-    
-    return order, tree_edges
 
-bfs_order, bfs_tree = bfs(graph, 'A')
-# print("BFS Order:", bfs_order)
-# print("BFS Tree Edges:", bfs_tree)
+    while queue:
+        node = queue.popleft()  # FIFO
+        if node not in visited:
+            print(node, end=" ")
+            visited.add(node)
+            queue.extend(graph[node])
+
+# print("\nBFS Iterative:")
+# bfs(graph, 'A')
+# --------------------------------------------------------------- #
 
 
 
 # DFS Traversal
-def dfs(graph, start):
+# Iterative Implementation (Using Stack)
+def dfs_iterative(graph, start):
     visited = set()
-    order = []
-    tree_edges = []
-    
-    def _dfs(vertex):
-        nonlocal order
-        visited.add(vertex)
-        order.append(vertex)
-        
-        for neighbor in sorted(graph[vertex]):
-            if neighbor not in visited:
-                tree_edges.append((vertex, neighbor))
-                _dfs(neighbor)
-    
-    _dfs(start)
-    return order, tree_edges
+    stack = [start]
 
-dfs_order, dfs_tree = dfs(graph, 'A')
-# print("DFS Order:", dfs_order)
-# print("DFS Tree Edges:", dfs_tree)
+    while stack:
+        node = stack.pop()  # LIFO
+        if node not in visited:
+            print(node, end=" ")
+            visited.add(node)
 
+            # add neighbors in reversed order
+            stack.extend(reversed(graph[node]))  
+
+# print("\nDFS Iterative:")
+# dfs_iterative(graph, 'A')
+# --------------------------------------------------------------- #
 
 
 def prim(graph, start):
