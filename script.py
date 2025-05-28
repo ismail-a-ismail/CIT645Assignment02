@@ -5,8 +5,8 @@ from collections import deque
 
 # Adjacency List Representation
 graph = {
-    'A': ['C'],
-    'B': ['C', 'D'],
+    'A': ['B'],
+    'B': ["C",'D'],
     'C': ['E', 'F'],
     'D': ['E', 'F'],
     'E': [],
